@@ -1,116 +1,120 @@
 import React from 'react';
-import { Button, Form, Input, Container} from 'semantic-ui-react'
-import {editUser} from '../actions/index'
+import { Card, Image, Button, Form, Input, Container} from 'semantic-ui-react'
+import {updateUser} from '../actions/index'
 import {withRouter} from 'react-router-dom'
 import {connect} from 'react-redux'
-import PillSearch from './PillSearch';
 
-class EditUser extends React.Component{
+class editUser extends React.Component{
 
    state = {
-      newUser:{
-         first_name: this.props.currentUser.first_name,
-         last_name: this.props.currentUser.last_name,
-         username: this.props.currentUser.username,
-         password: null,
-         email: this.props.currentUser.email,
+      changedUser:{
+        first_name: this.props.currentUser.first_name,
+        last_name: this.props.currentUser.last_name,
+        username: this.props.currentUser.username,
+        password: null,
+        email: this.props.currentUser.email,
+        profile_picture: this.props.currentUser.profile_picture
       }
-   }
+    }
 
    handleChange = e => {
       // debugger
       console.log(e.currentTarget.name)
-      this.setState({ newUser: {
-        ...this.state.newUser,
+      this.setState({ changedUser: {
+        ...this.state.changedUser,
         [e.currentTarget.name]: e.currentTarget.value}
       })
     }
 
-    sumbit = () => {
-      this.props.history.push('/')
-      this.props.editUser(this.state.newUser, this.props.currentUser.id)
-    }
+    // up = () => {
+    //   this.props.history.push('/')
+    //   this.props.createUser(this.state.changedUser)
+    // }
   
-
   render(){
      console.log(this.props)
     return (
          
       <React.Fragment>
+         <h1>Edit User</h1>
+         
         <Container>
-         <Form onSubmit={() => this.sumbit()}>
-            <Form.Group widths='equal'>
-               <Form.Field
-                  control={Input}
-                  name='username'
-                  label='Username'
-                  placeholder='Username'
-                  onChange={e => this.handleChange(e)}
-                  required
-                  value={this.state.newUser.username}
-               >
-               </Form.Field>
-
-               <Form.Field
-                  name='email'
-                  control={Input}
-                  label='Email'
-                  placeholder='Email'
-                  onChange={e => this.handleChange(e)}
-                  value={this.state.newUser.email}
-                  
-               >
-               </Form.Field>
-
-            </Form.Group>
-
-            <Form.Group>
-               <Form.Field
-                  name='first_name'
-                  control={Input}
-                  label='First Name'
-                  placeholder='First'
-                  onChange={e => this.handleChange(e)}
-                   required
-                   value={this.state.newUser.first_name}
-               >
-               </Form.Field>
-
-               <Form.Field
-                  control={Input}
-                  name='last_name'
-                  label='Last Name'
-                  placeholder='Last'
-                  onChange={e => this.handleChange(e)}
-                  value={this.state.newUser.last_name}
-                  
-               >
-               </Form.Field>
-            </Form.Group>
-
-            <Form.Group>
-               <Form.Field
-                  control={Input}
-                  name='password'
-                  type='password'
-                  label='Password'
-                  placeholder='Password'
-                  onChange={e => this.handleChange(e)}
-                  required
-               >
-               </Form.Field>
-
-            </Form.Group>
-          
-            <Form.Group>
-            
-               <Form.Field
-                  control={Button}
-                  type='submit'
-               >Submit
-               </Form.Field>
            
+         <Form onSubmit={() => this.props.updateUser(this.state.changedUser, this.props.currentUser.id)}>
+         <Form.Group >
+               <Form.Field
+               control={Input}
+               label='First name'
+               placeholder='First name'
+               name='first_name'
+               onChange={e => this.handleChange(e)}
+               value={this.state.changedUser.first_name}
+               required
+               />
+               <Form.Field
+               control={Input}
+               label='Last name'
+               placeholder='Last name'
+               name='last_name'
+               onChange={e => this.handleChange(e)}
+               value={this.state.changedUser.last_name}
+               required
+               />
             </Form.Group>
+            <Form.Group>
+               <Form.Field
+               control={Input}
+               label='Username'
+               placeholder='Username'
+               name='username'
+               onChange={e => this.handleChange(e)}
+               value={this.state.changedUser.username}
+               required
+               />
+               <Form.Field
+               control={Input}
+               type='password'
+               label='Password'
+               placeholder='Password'
+               name='password'
+               onChange={e => this.handleChange(e)}
+               value={this.state.changedUser.password}
+               required
+               />
+            </Form.Group>
+
+            <Form.Group>
+               <Form.Field
+               id='form-input-control-error-email'
+               control={Input}
+               label='Email'
+               placeholder='username@example.com'
+               name='email'
+               onChange={e => this.handleChange(e)}
+               value={this.state.changedUser.email}
+               required
+               />
+            
+            </Form.Group>
+            <Form.Group>
+               <Card><Image src={this.state.changedUser.profile_picture} /></Card>
+
+               <Form.Field
+               control={Input}
+               label='Avatar link address'
+               placeholder='someadress.com/img/avatar.jpg'
+               name='profile_picture'
+               onChange={e => this.handleChange(e)}
+               value={this.state.changedUser.profile_picture}
+               required
+               />
+            </Form.Group>
+
+            <Form.Field control={Button}
+               type='submit'
+            >Submit
+            </Form.Field>
+                  
          </Form>
         </Container>
       </React.Fragment>
@@ -120,12 +124,15 @@ class EditUser extends React.Component{
 }
 
 const mapDispatchToProps = (dispatch) => ({
-   editUser: (user, id) => {dispatch(editUser(user, id))}
+   updateUser: (changedUser, userId) => {dispatch(updateUser(changedUser, userId))}
  })
 
- const mapStateToProps = (state) => {
-  return {currentUser: state.currentUser}
-}
+ const mapStateToProps = (state) => ({
+  currentUser: state.currentUser
+})
 
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(EditUser))
+ export default withRouter(connect(mapStateToProps, mapDispatchToProps)(editUser));
+ 
+
+ 

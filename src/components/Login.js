@@ -31,6 +31,7 @@ import {connect} from 'react-redux'
     return (
       <React.Fragment>
         <Container>
+           <h1> Login </h1>
          <Form onSubmit={() => this.login()}>
             <Form.Group widths='equal'>
                <Form.Field

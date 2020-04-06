@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Form, Input, Container} from 'semantic-ui-react'
+import { Card, Image, Button, Form, Input, Container} from 'semantic-ui-react'
 import {createUser} from '../actions/index'
 import {withRouter} from 'react-router-dom'
 import {connect} from 'react-redux'
@@ -12,7 +12,8 @@ class Signup extends React.Component{
          last_name: null,
          username: null,
          password: null,
-         email: null
+         email: null,
+         profile_picture: 'https://uybor.uz/borless/uybor/img/user-images/user_no_photo_300x300.png'
       }
    }
 
@@ -36,76 +37,78 @@ class Signup extends React.Component{
     return (
          
       <React.Fragment>
+         <h1>Sign Up</h1>
+         
         <Container>
-         <Form onSubmit={() => this.signUp()}>
-            <Form.Group widths='equal'>
-               <Form.Field
-                  control={Input}
-                  name='username'
-                  label='Username'
-                  placeholder='Username'
-                  onChange={e => this.handleChange(e)}
-                  required
-               >
-               </Form.Field>
-
-               <Form.Field
-                  name='email'
-                  control={Input}
-                  label='Email'
-                  placeholder='Email'
-                  onChange={e => this.handleChange(e)}
-                  
-               >
-               </Form.Field>
-
-            </Form.Group>
-
-            <Form.Group>
-               <Form.Field
-                  name='first_name'
-                  control={Input}
-                  label='First Name'
-                  placeholder='First'
-                  onChange={e => this.handleChange(e)}
-                   required
-               >
-               </Form.Field>
-
-               <Form.Field
-                  control={Input}
-                  name='last_name'
-                  label='Last Name'
-                  placeholder='Last'
-                  onChange={e => this.handleChange(e)}
-                  
-               >
-               </Form.Field>
-            </Form.Group>
-
-            <Form.Group>
-               <Form.Field
-                  control={Input}
-                  name='password'
-                  type='password'
-                  label='Password'
-                  placeholder='Password'
-                  onChange={e => this.handleChange(e)}
-                  required
-               >
-               </Form.Field>
-
-            </Form.Group>
-          
-            <Form.Group>
-            
-               <Form.Field
-                  control={Button}
-                  type='submit'
-               >Submit
-               </Form.Field>
            
+         <Form onSubmit={() => this.signUp()}>
+         <Form.Group >
+               <Form.Field
+               control={Input}
+               label='First name'
+               placeholder='First name'
+               name='first_name'
+               onChange={e => this.handleChange(e)}
+               required
+               />
+               <Form.Field
+               control={Input}
+               label='Last name'
+               placeholder='Last name'
+               name='last_name'
+               onChange={e => this.handleChange(e)}
+               required
+               />
             </Form.Group>
+            <Form.Group>
+               <Form.Field
+               control={Input}
+               label='Username'
+               placeholder='Username'
+               name='username'
+               onChange={e => this.handleChange(e)}
+               required
+               />
+               <Form.Field
+               control={Input}
+               type='password'
+               label='Password'
+               placeholder='Password'
+               name='password'
+               onChange={e => this.handleChange(e)}
+               required
+               />
+            </Form.Group>
+
+            <Form.Group>
+               <Form.Field
+               id='form-input-control-error-email'
+               control={Input}
+               label='Email'
+               placeholder='username@example.com'
+               name='email'
+               onChange={e => this.handleChange(e)}
+               required
+               />
+            
+            </Form.Group>
+            <Form.Group>
+               <Card><Image src={this.state.newUser.profile_picture} /></Card>
+
+               <Form.Field
+               control={Input}
+               label='Avatar link address'
+               placeholder='someadress.com/img/avatar.jpg'
+               name='profile_picture'
+               onChange={e => this.handleChange(e)}
+               />
+            </Form.Group>
+
+            <Form.Field control={Button}
+               type='submit'
+            >Submit
+            </Form.Field>
+                  
          </Form>
         </Container>
       </React.Fragment>
@@ -119,4 +122,6 @@ const mapDispatchToProps = (dispatch) => ({
  })
  
  export default withRouter(connect(null, mapDispatchToProps)(Signup));
+ 
+
  

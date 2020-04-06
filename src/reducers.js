@@ -1,18 +1,8 @@
 import { combineReducers } from "redux"
-import {SET_PILLS, LOGIN, LOGOUT, ADD_PILL_LIST,  ADD_PILL_TO_LIST, ON_SEARCH, DELETE_PILL_LIST} from './actions/types'
-// import { useStore } from "react-redux";
+import { LOGIN, LOGOUT, FETCH_PARKS, SET_CURRENT_PARK, SET_USER_PARKS,
+    ADD_PARK_TO_STORE, REMOVE_PARK_FROM_USER, CLEAR_PARKS_STORE} from './actions/types'
 
 
-const pillReducer = (state = [], action) => {
-   switch (action.type) {
-     case SET_PILLS:
-        return action.payload
-      case ON_SEARCH:
-         return action.payload
-      default:
-       return state;
-   }
- };
 
 const userReducer = (state = null, action) => {
    switch (action.type) {
@@ -20,38 +10,53 @@ const userReducer = (state = null, action) => {
          return action.payload
       case LOGOUT:
          return action.payload
-      case ADD_PILL_LIST:
-        const newstate = { ...state, pill_lists: [...state.pill_lists, action.payload] }
-         return newstate
-      case  ADD_PILL_TO_LIST:
-         const targetArr = state.pill_lists.filter(
-            list => list.id === action.payload.join.pill_list_id
-            )
-         const filteredLists = state.pill_lists.filter(
-            list => list.id !== action.payload.join.pill_list_id
-            )
-
-         const newList = {...targetArr[0], pills: [...targetArr[0].pills, action.payload.pill]}
-
-         const pillState = {...state,
-                              pill_lists: [...filteredLists, newList]
-                           }                                    
-         return pillState
-      case DELETE_PILL_LIST:
-         const filtered = state.pill_lists.filter(list => list !== action.payload)
-         const updatedState = {...state , pill_lists: filtered}
-                                            
-      return updatedState
    default:
       return state;
    }
 }
 
-// userReducer.pill_list(pills)
+const parksReducer = (state = null, action) => {
+   switch (action.type) {
+      case FETCH_PARKS:
+         return action.payload
+      case CLEAR_PARKS_STORE:
+         return action.payload
+   default:
+      return state;
+   }
+}
+
+const parkViewReducer = (state = null, action) => {
+   switch (action.type) {
+      case SET_CURRENT_PARK:
+         return action.payload
+   default:
+      return state;
+   }
+}
+
+const userParksReducer = ( state = [], action) => {
+   switch (action.type) {
+      case SET_USER_PARKS:
+         return action.payload
+      case ADD_PARK_TO_STORE:
+         return [...state, action.payload]
+      case REMOVE_PARK_FROM_USER: 
+         const filter = state.filter(userParks => userParks.id !== action.payload)      
+         return filter
+      default:
+         return state;
+   }
+   
+}
+
+
 
 const rootReducer = combineReducers({
-   pills: pillReducer,
-   currentUser: userReducer
+   currentUser: userReducer,
+   userParks: userParksReducer,
+   parks: parksReducer,
+   currentPark: parkViewReducer
 })
 
 export default rootReducer

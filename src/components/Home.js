@@ -1,47 +1,72 @@
 import React from 'react';
-import { Button, Segment, Container, Header, Image } from 'semantic-ui-react'
-import { Link } from 'react-router-dom'
+import { Grid, Segment, Container, Image, Dimmer, Loader } from 'semantic-ui-react'
+import {withRouter} from 'react-router-dom'
 import {connect} from 'react-redux'
-import QR from '../img/QR.png'
+import {setPark} from '../actions/index'
+import {Link} from 'react-router-dom'
 
 
 class Home extends React.Component{
+  state = {
+    homePark: null
+  }
+
+  componentDidMount(){
+    const obj = {
+      method: 'POST',
+      headers:{ 
+         'content-type': 'application/json',
+         Accept: 'application/json'
+      }
+   }
+  
+
+   fetch('http://localhost:3000/parks/homePark', obj)
+   .then(resp => resp.json())
+   .then(json => this.setState({ homePark: json }))
+   .catch(err => console.warn(err))
+  }
   
   render(){
 
     return (
+
       <React.Fragment>
             
-      {this.props.currentUser ? <Link to='/new-pill-list'><Button content='New Pill Box' className="color"/></Link>: null}
-         <Link to='/pills/search'><Button content='Search Pills'/></Link>
-      {this.props.currentUser ? <Link to='/lists/display'><Button content='Your Pill Box'/></Link>: null }
-      {this.props.currentUser ?   <Link to='/reminders'><Button content='Reminders'/></Link> : null}
-
-         
-        <Segment>
-          <Container text>
-            <Header as="h3">Our Background</Header>
-            <p>
-              Pill Box is a multi puropse tool for assiting you for your medication needs. Rather it's for
-               setting reminders to take your pills, or just checking information on the pills you take.
-                PillBox uses all FDA suppored information, so you know what we provide suppored information 
-                for our users.
-            </p>
+          <Container>
+            <Grid padded>
+              <Grid.Row stretched padded='vertically'>
+                <Grid.Column width={12} height={20}>
+                  <Segment>
+                      {this.state.homePark !== null ? <Image src={this.state.homePark.coverPic} id={'park_image'} style={{ marginLeft: 'auto', marginRight: 'auto',  verticalAlign: 'middle' }} alt={this.state.homePark.fullName}/>:      
+                      <Dimmer active inverted>
+                        <Loader inverted>Loading</Loader>
+                      </Dimmer>} 
+                  <Segment onClick={() => this.props.setPark(this.state.homePark)}>
+                    {this.state.homePark !== null ? <Link to="/parks/:id" ><p onClick={() => this.props.setPark(this.state.homePark)}> {this.state.homePark.fullName}</p></Link>: null}
+                  </Segment>
+                  </Segment>
+                
+                </Grid.Column>
+                <Grid.Column width={4} height={20}>
+                  <Segment>           
+                      <h1>Details</h1>
+                  </Segment>
+                </Grid.Column>
+              </Grid.Row>
+            </Grid>
           </Container>
-        </Segment>
-
-      <Image src={QR} size='medium' centered/>
-
+       
       </React.Fragment>
-
-
 
     )
   }
 }
 
-const mapStateToProps = (state) => {
-   return { currentUser: state.currentUser}
- }
- export default connect(mapStateToProps)(Home)
- 
+const mapDispatchToProps = (dispatch) => ({
+  setPark: (park) => {dispatch(setPark(park))}
+})
+
+export default withRouter(connect(null, mapDispatchToProps)(Home));
+
+
