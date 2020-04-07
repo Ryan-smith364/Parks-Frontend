@@ -10,8 +10,9 @@ import ParksPage from './components/ParksPage';
 import SingleParkView from './components/SingleParkView';
 import Profile from './components/Profile'
 import EditUser from './components/EditUser';
-import { Button, Menu, Modal, Image, Sidebar, Segment} from 'semantic-ui-react';
-import {Link} from 'react-router-dom'
+import Navbar from './components/Navbar'
+import { Button, Menu, Sidebar, Segment} from 'semantic-ui-react';
+
 
 
 
@@ -61,48 +62,10 @@ class App extends React.Component{
         visible={this.state.menu}
         width='thin'
       >
+        
+        <Navbar/>
 
-        <Menu.Menu position='right'>
-
-          <Menu.Item onClick={() => this.closeSidebar()}>
-            { this.props.currentUser !== null ? null : 
-              <Modal size={'medium'} trigger={<Button style={{width: 100}} >Sign up</Button>} closeIcon> 
-                <Modal.Content>
-                  <Signup/>
-                </Modal.Content>
-              </Modal>
-            }
-           </Menu.Item>
-
-          <Menu.Item onClick={() => this.closeSidebar()}>
-              { this.props.currentUser !== null ?
-                <Link to="/profile">
-                  <Image src={this.props.currentUser.profile_picture} id={'navProfile'} style={{ marginLeft: 'auto', marginRight: 'auto' }} />
-                </Link> 
-                  : 
-                <Modal  trigger={<Button style={{width: 100}} >Login</Button>} closeIcon> 
-                  <Modal.Content>
-                    <Login/>
-                  </Modal.Content>
-                </Modal>
-              }
-          </Menu.Item>
-          
-        </Menu.Menu> 
-
-          <Menu.Item onClick={() => this.closeSidebar()}>
-            <Link to="/"> <Button style={{width: 100}}>Home</Button> </Link>
-          </Menu.Item>
-
-          <Menu.Item onClick={() => this.closeSidebar()}>
-            <Link to="/parks"> <Button style={{width: 100}} >Parks</Button> </Link>
-          </Menu.Item>
-
-          <Menu.Item onClick={() => this.closeSidebar()}>
-            <Link to="/contact"><Button  style={{width: 100}} >Contact Me</Button></Link>
-          </Menu.Item>
-
-        </Sidebar>
+      </Sidebar>
     
         <Sidebar.Pusher 
           onClick={() => this.closeSidebar()}

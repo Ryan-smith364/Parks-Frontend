@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Menu, Modal, Image, Sidebar, Icon, Header, Segment} from 'semantic-ui-react';
+import { Button, Menu, Modal, Image} from 'semantic-ui-react';
 import {Link} from 'react-router-dom'
 import Login from './Login'
 import {withRouter} from 'react-router-dom'
@@ -17,52 +17,47 @@ import Signup from './Signup';
 
         <React.Fragment>
           
-          
-          <Menu pointing secondary vertical>
+          <Menu.Menu position='right'>
 
-              <Menu.Item>
-                <Link to="/"> <Button>Home</Button> </Link>
-              </Menu.Item>
-
-              <Menu.Item>
-                <Link to="/parks"> <Button>Parks</Button> </Link>
-              </Menu.Item>
-
-              <Menu.Menu position='middle'>
-                <Menu.Item>
-                  <h1>parks n stuff</h1>
-                </Menu.Item>
-              </Menu.Menu>
-
-            <Menu.Menu position='right'>
-
-              <Menu.Item>
-                <Link to="/contact"><Button>Contact Me</Button></Link>
-              </Menu.Item>
-
-
-              <Menu.Item>
-                { this.props.currentUser !== null ? null : 
-                <Modal size={'medium'} trigger={<Button>Sign up</Button>} closeIcon> 
+            <Menu.Item onClick={() => this.closeSidebar()}>
+              { this.props.currentUser !== null ? null : 
+                <Modal size={'medium'} trigger={<Button style={{width: 100}} >Sign up</Button>} closeIcon> 
                   <Modal.Content>
                     <Signup/>
                   </Modal.Content>
-                </Modal>}
-              </Menu.Item>
+                </Modal>
+              }
+            </Menu.Item>
 
-              <Menu.Item>
-                { this.props.currentUser !== null ? <Link to="/profile"><Image src={this.props.currentUser.profile_picture} id={'navProfile'}/></Link> : 
-                <Modal  trigger={<Button>Login</Button>} closeIcon> 
-                  <Modal.Content>
-                    <Login/>
-                  </Modal.Content>
-                </Modal>}
-              </Menu.Item>
-            </Menu.Menu>
-          </Menu>
+            <Menu.Item onClick={() => this.closeSidebar()}>
+                { this.props.currentUser !== null ?
+                  <Link to="/profile">
+                    <Image src={this.props.currentUser.profile_picture} id={'navProfile'} style={{ marginLeft: 'auto', marginRight: 'auto' }} />
+                  </Link> 
+                    : 
+                  <Modal  trigger={<Button style={{width: 100}} >Login</Button>} closeIcon> 
+                    <Modal.Content>
+                      <Login/>
+                    </Modal.Content>
+                  </Modal>
+                }
+            </Menu.Item>
 
+            </Menu.Menu> 
 
-        // </React.Fragment>
+            <Menu.Item onClick={() => this.closeSidebar()}>
+              <Link to="/"> <Button style={{width: 100}}>Home</Button> </Link>
+            </Menu.Item>
+
+            <Menu.Item onClick={() => this.closeSidebar()}>
+              <Link to="/parks"> <Button style={{width: 100}} >Parks</Button> </Link>
+            </Menu.Item>
+
+            <Menu.Item onClick={() => this.closeSidebar()}>
+              <Link to="/contact"><Button  style={{width: 100}} >Contact Me</Button></Link>
+            </Menu.Item>
+
+         </React.Fragment>
 
       )}}
      
