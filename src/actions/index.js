@@ -6,7 +6,6 @@ import {LOGIN ,LOGOUT, FETCH_PARKS,
 
 
 function createUser(user){
-   console.log(user)
    return (dispatch) => {
 
       const obj = {
@@ -26,7 +25,6 @@ function createUser(user){
 }
 
 function search(term){
-   console.log("term", term)
    return (dispatch) => {
       dispatch(clearParks())
 
@@ -47,7 +45,6 @@ function search(term){
 }
 
 function findUser(user){
-   console.log(user)
    return(dispatch ) => {
       const obj = {
          method: 'POST',
@@ -65,7 +62,7 @@ function findUser(user){
             alert("Username or Password is Incorrect")
          }
          else{
-            console.log(user)
+            
             dispatch(loginUser(user))  
             dispatch(setUserParks(user.users_parks))
          }
@@ -76,7 +73,7 @@ function findUser(user){
 
 function updateUser(userObj, userId){
 
-   console.log(userObj)
+  
 return (dispatch) => {
   
       const obj = {
@@ -95,7 +92,6 @@ return (dispatch) => {
 }
 
 function savePark(park, userId){
-   console.log('HITTING')
 
    return (dispatch) => {
 
@@ -116,7 +112,6 @@ function savePark(park, userId){
 }
 
 function removePark(join){
-   // console.log(join, join.id)
    return (dispatch) => {
 
       const obj = {
@@ -166,7 +161,6 @@ function searchParks(parks){
  }
 
  function removeParkFromUser(json){
-    console.log(json.id)
     return{type: REMOVE_PARK_FROM_USER, payload: json.id}
  }
  

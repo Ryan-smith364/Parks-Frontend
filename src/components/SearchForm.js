@@ -11,8 +11,6 @@ class SearchForm extends React.Component{
    }
 
    handleChange = e => {
-
-    console.log(e.currentTarget.value)
     this.setState({ search: e.currentTarget.value.toLowerCase() })
   }
 

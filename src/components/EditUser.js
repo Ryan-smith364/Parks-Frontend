@@ -18,21 +18,13 @@ class editUser extends React.Component{
     }
 
    handleChange = e => {
-      // debugger
-      console.log(e.currentTarget.name)
       this.setState({ changedUser: {
         ...this.state.changedUser,
         [e.currentTarget.name]: e.currentTarget.value}
       })
     }
 
-    // up = () => {
-    //   this.props.history.push('/')
-    //   this.props.createUser(this.state.changedUser)
-    // }
-  
   render(){
-     console.log(this.props)
     return (
          
       <React.Fragment>

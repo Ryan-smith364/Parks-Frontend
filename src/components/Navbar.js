@@ -19,7 +19,7 @@ import Signup from './Signup';
           
           <Menu.Menu position='right'>
 
-            <Menu.Item onClick={() => this.closeSidebar()}>
+            <Menu.Item onClick={() => this.props.closeSidebar()}>
               { this.props.currentUser !== null ? null : 
                 <Modal size={'medium'} trigger={<Button style={{width: 100}} >Sign up</Button>} closeIcon> 
                   <Modal.Content>
@@ -29,7 +29,7 @@ import Signup from './Signup';
               }
             </Menu.Item>
 
-            <Menu.Item onClick={() => this.closeSidebar()}>
+            <Menu.Item onClick={() => this.props.closeSidebar()}>
                 { this.props.currentUser !== null ?
                   <Link to="/profile">
                     <Image src={this.props.currentUser.profile_picture} id={'navProfile'} style={{ marginLeft: 'auto', marginRight: 'auto' }} />
@@ -45,15 +45,15 @@ import Signup from './Signup';
 
             </Menu.Menu> 
 
-            <Menu.Item onClick={() => this.closeSidebar()}>
+            <Menu.Item onClick={() => this.props.closeSidebar()}>
               <Link to="/"> <Button style={{width: 100}}>Home</Button> </Link>
             </Menu.Item>
 
-            <Menu.Item onClick={() => this.closeSidebar()}>
+            <Menu.Item onClick={() => this.props.closeSidebar()}>
               <Link to="/parks"> <Button style={{width: 100}} >Parks</Button> </Link>
             </Menu.Item>
 
-            <Menu.Item onClick={() => this.closeSidebar()}>
+            <Menu.Item onClick={() => this.props.closeSidebar()}>
               <Link to="/contact"><Button  style={{width: 100}} >Contact Me</Button></Link>
             </Menu.Item>
 

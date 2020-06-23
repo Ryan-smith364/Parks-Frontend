@@ -4,6 +4,7 @@ import {withRouter} from 'react-router-dom'
 import {connect} from 'react-redux'
 import {savePark} from '../actions/index'
 import ParkMap from './ParkMap'
+import CommentSection from '../containers/CommentSection';
 
 
 class SingleParkView extends React.Component{
@@ -13,8 +14,6 @@ class SingleParkView extends React.Component{
 
    componentDidMount(){
      this.props.userParks.forEach(userPark => {
-        console.log( userPark.park, this.props.park)
-        console.log(userPark.park.fullName === this.props.park.fullName)
         if (userPark.park.fullName === this.props.park.fullName){
             this.setState({check: true})
         }
@@ -42,13 +41,10 @@ class SingleParkView extends React.Component{
                                  Park Saved 
                               </Button> :
                         <Button 
-                                onClick={() => {
-                                 console.log('saved', this.props.park.fullName)
+                              onClick={() => {
                                  this.props.savePark(this.props.park, this.props.currentUser.id)
                                  this.setState({check: true})
-                                }
-                              }
-                              
+                              }}
                         >
                            Save Park
                         </Button> )
@@ -56,17 +52,20 @@ class SingleParkView extends React.Component{
                         null}
 
                      </Segment>
+
                      <Segment>
                      <h4> {this.props.park.fullName}: {this.props.park.states} </h4>
                       <p>Description: {this.props.park.description}</p>
             
                      </Segment>
+
                   </Grid.Column>
                   <Grid.Column width={8} >
+
                      <Segment>
                      <p>Weather: {this.props.park.weatherInfo}</p>
                       <p>Directions: {this.props.park.directionsInfo}</p>
-                      <p>Hours: {this.props.park.operatingHours}</p>
+                      {/* <p>Hours: {this.props.park.operatingHours}</p> */}
                     
                      </Segment>
                      <Segment>
@@ -86,6 +85,7 @@ class SingleParkView extends React.Component{
                </Grid.Row>
             </Grid>   
          </Container>
+         <CommentSection/>
        
       </React.Fragment>
 

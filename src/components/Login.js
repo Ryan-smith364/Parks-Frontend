@@ -19,8 +19,6 @@ import {connect} from 'react-redux'
    }
 
    handleChange = (e) => {
-      console.log(e.currentTarget.name)
-
       this.setState({user:{
          ...this.state.user,
          [e.currentTarget.name]: e.currentTarget.value}

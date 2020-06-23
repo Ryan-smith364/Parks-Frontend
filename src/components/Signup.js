@@ -18,8 +18,6 @@ class Signup extends React.Component{
    }
 
    handleChange = e => {
-      // debugger
-      console.log(e.currentTarget.name)
       this.setState({ newUser: {
         ...this.state.newUser,
         [e.currentTarget.name]: e.currentTarget.value}
@@ -33,7 +31,6 @@ class Signup extends React.Component{
   
 
   render(){
-     console.log(this.props)
     return (
          
       <React.Fragment>

@@ -62,8 +62,8 @@ class App extends React.Component{
         visible={this.state.menu}
         width='thin'
       >
-        
-        <Navbar/>
+
+        <Navbar closeSidebar={this.closeSidebar}/>
 
       </Sidebar>
     
@@ -81,15 +81,17 @@ class App extends React.Component{
          <Switch>
 
             <Route path='/login' render={() => <Login/>}/>
-            <Route path='/edit' render={() => <EditUser/>}/>
+            <Route path='/edit' render={() => (this.props.currentUser === null)
+              ? <Redirect to='/login' /> 
+                  :
+                <EditUser/>}
+              />
             <Route path='/signup' render={() => <Signup/>}/>
-
             <Route path='/profile' render={() => (this.props.currentUser === null)
               ? <Redirect to='/login' /> 
                   :
                 <Profile user={this.props.currentUser} userParks={this.props.userParks}/>}
               />
-
             <Route path='/contact' render={() => <Contact/>}/>
             <Route path='/parks/:id' render={() => <SingleParkView park={this.props.currentPark}/>}/>
             <Route path='/parks' render={() => <ParksPage/>}/>
