@@ -1,7 +1,10 @@
 {
-  "name": "Parks n stuff frontend",
+  "name": "Parks n stuff",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": "13.0.1"
+  },
   "dependencies": {
     "@stardust-ui/docs-components": "^0.40.0",
     "@testing-library/jest-dom": "^4.2.4",
@@ -18,7 +21,7 @@
     "react-map-gl": "^5.2.3",
     "react-redux": "^7.1.3",
     "react-router-dom": "^5.1.2",
-    "react-scripts": "^3.4.0",
+    "react-scripts": "3.2.0",
     "react-select-us-states": "^0.1.2",
     "react-thunk": "^1.0.0",
     "react-time-picker": "^3.9.0",
