@@ -2,9 +2,6 @@
   "name": "parks-n-stuff",
   "version": "0.1.0",
   "private": true,
-  "engines": {
-    "node": "13.0.1"
-  },
   "dependencies": {
     "@stardust-ui/docs-components": "^0.40.0",
     "@testing-library/jest-dom": "^4.2.4",
